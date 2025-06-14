@@ -104,8 +104,6 @@ To support both keyword-based and multimodal search, the system utilizes two typ
 
 ---
 
-## 📦 Elasticsearch Collections
-
 #### 📄 `product_information`
 
 Stores structured metadata for keyword-based product search.
@@ -150,8 +148,6 @@ Monitors rating and review trends over time.
 
 ---
 
-## 🧠 Milvus Collections
-
 #### 🧬 `product_embedding`
 
 Enables similarity search using OpenCLIP embeddings.
@@ -176,6 +172,69 @@ Enables similarity search using OpenCLIP embeddings.
 > - Flash sales, bundles, vouchers  
 > 
 > This schema is **designed for extensibility**. Additional collections (e.g., `seller_info`, `search_log`, `user_behavior`) can be added without impacting existing system behavior or performance.
+
+# 📈 Performance Evaluation
+
+This section presents the performance evaluation of the system across three key dimensions: data crawling speed, search accuracy, and query efficiency on real-world datasets.
+
+---
+
+#### ⚙️ 1. Data Crawling Throughput
+
+To evaluate the scalability of the data crawling system, experiments were conducted on multiple crawler servers (each running 10 parallel crawling threads). The following table shows the total number of products collected over time depending on the number of machines:
+
+| ⏱️ Duration | 🖥️ 1 Server | 🖥️ 2 Servers | 🖥️ 3 Servers |
+| -----------:| ------------:| -------------:| -------------:|
+| 1 hour      | 4,092 items  | 8,089 items   | 12,076 items  |
+| 2 hours     | 7,993 items  | 16,005 items  | 23,987 items  |
+| 3 hours     | 11,928 items | 23,821 items  | 35,722 items  |
+| 4 hours     | 15,782 items | 31,565 items  | 47,177 items  |
+| 5 hours     | 20,313 items | 40,536 items  | 60,672 items  |
+
+> ✅ **Observation**: The system demonstrates near-linear scalability with more machines, significantly improving large-scale data collection.
+
+---
+
+#### 🔍 2. Retrieval Accuracy
+
+Search accuracy is evaluated based on two retrieval modes:
+
+- 📷 **Image-based search**: using image embeddings from OpenCLIP.
+- 🖼️ + 📝 **Multimodal search**: using combined embeddings from both image and textual description.
+
+| Top-k  | 🎯 Accuracy (Image Only) | 🔀 Accuracy (Image + Text) |
+| ------ | ------------------------ | -------------------------- |
+| Top-1  | 0.701                    | 0.723                      |
+| Top-2  | 0.762                    | 0.765                      |
+| Top-3  | 0.786                    | 0.795                      |
+| Top-4  | 0.798                    | 0.801                      |
+| Top-5  | 0.804                    | 0.807                      |
+| Top-6  | 0.810                    | 0.813                      |
+| Top-7  | 0.813                    | 0.815                      |
+| Top-8  | 0.815                    | 0.821                      |
+| Top-9  | 0.821                    | 0.827                      |
+| Top-10 | 0.821                    | 0.827                      |
+
+> 📌 **Conclusion**: The combined modality improves retrieval accuracy, especially in Top-1 and Top-10 rankings, enhancing the system’s reliability in practical e-commerce scenarios.
+
+---
+
+#### 🚀 3. Query Latency (Performance Benchmark)
+
+The following table presents query latency statistics under different dataset sizes and return sizes. All latency values are measured in **milliseconds (ms)**.
+
+| # Products | Top-k Results | Mean   | Median | Std Dev | P95    | P99    |
+| ---------- | ------------- | ------ | ------ | ------- | ------ | ------ |
+| 65,320     | 100           | 6.077  | 6.013  | 0.432   | 6.826  | 7.467  |
+| 65,320     | 200           | 6.146  | 6.112  | 0.436   | 6.917  | 7.356  |
+| 1,304,600  | 100           | 17.573 | 17.608 | 1.068   | 19.268 | 20.218 |
+| 1,304,600  | 200           | 19.182 | 19.311 | 1.108   | 21.268 | 23.218 |
+
+> 📌 **Interpretation**:  
+> 
+> - Query latency remains **low and stable** for small datasets and increases **linearly** with the dataset size.
+> - Even with over **1.3 million items**, 99% of queries (P99) return results within **~23 ms**.
+> - The system supports near real-time responsiveness, suitable for interactive search applications.
 
 # 📜 License
 
