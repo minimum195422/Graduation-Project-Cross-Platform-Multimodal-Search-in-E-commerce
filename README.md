@@ -1,6 +1,10 @@
 # 🎓Graduation Project: Cross-Platform Multimodal Search in E-commerce
 
+---
+
 # 📘Introduction
+
+---
 
 In recent years, Vietnam’s e-commerce market has witnessed remarkable growth, becoming a driving force in the digital economy. By 2024, e-commerce accounted for 9% of total retail sales and nearly two-thirds of the digital economy's value, placing Vietnam among the top 10 fastest-growing e-commerce nations globally.
 
@@ -13,6 +17,8 @@ Existing price comparison tools (e.g., websosanh.vn) rely mainly on keyword-base
 To address these challenges, this project proposes an end-to-end system that automates data crawling, storage, and search across platforms. Selenium is used to simulate real user behavior, allowing robust data extraction from dynamic pages. Crawled data is indexed using both **Elasticsearch** (for keyword-based search) and **Milvus** (for image and vector similarity search). The system leverages **OpenCLIP**, a multimodal deep learning model, to support image-based and hybrid searches.
 
 # 🛠️ Technologies Used
+
+---
 
 This project integrates multiple technologies and frameworks to build a scalable, efficient, and intelligent multi-platform product search system:
 
@@ -52,13 +58,19 @@ This project integrates multiple technologies and frameworks to build a scalable
 
 # 🧠 System Architecture
 
+---
+
 The system is designed as a distributed, message-driven pipeline that supports large-scale data collection, preprocessing, embedding, and search across multiple e-commerce platforms. It ensures scalability, modularity, and real-time responsiveness.
 
 #### 🧱 Architecture Overview
 
+---
+
 ![Data Crawling Pipeline](assets/data_pipeline_diagram.jpg)
 
 #### 🔄 End-to-End Workflow
+
+---
 
 1. **Job Scheduling**
    
@@ -96,6 +108,8 @@ The system is designed as a distributed, message-driven pipeline that supports l
 - **Cloud-native** components ensure flexibility, fault tolerance, and cost-effectiveness.
 
 # 📊 Data Schema
+
+---
 
 To support both keyword-based and multimodal search, the system utilizes two types of storage backends:
 
@@ -165,9 +179,13 @@ Enables similarity search using OpenCLIP embeddings.
 
 # 📈 Performance Evaluation
 
+---
+
 This section presents the performance evaluation of the system across three key dimensions: data crawling speed, search accuracy, and query efficiency on real-world datasets.
 
 #### ⚙️ 1. Data Crawling Throughput
+
+---
 
 To evaluate the scalability of the data crawling system, experiments were conducted on multiple crawler servers (each running 10 parallel crawling threads). The following table shows the total number of products collected over time depending on the number of machines:
 
@@ -182,6 +200,8 @@ To evaluate the scalability of the data crawling system, experiments were conduc
 > ✅ **Observation**: The system demonstrates near-linear scalability with more machines, significantly improving large-scale data collection.
 
 #### 🔍 2. Retrieval Accuracy
+
+---
 
 Search accuracy is evaluated based on two retrieval modes:
 
@@ -205,6 +225,8 @@ Search accuracy is evaluated based on two retrieval modes:
 
 #### 🚀 3. Query Latency (Performance Benchmark)
 
+---
+
 The following table presents query latency statistics under different dataset sizes and return sizes. All latency values are measured in **milliseconds (ms)**.
 
 | # Products | Top-k Results | Mean   | Median | Std Dev | P95    | P99    |
@@ -222,9 +244,13 @@ The following table presents query latency statistics under different dataset si
 
 # 📜 License
 
+---
+
 This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
 
 # 👤 Author & Contact
+
+---
 
 **Duong Binh Minh**  
 Bachelor's Student in Information Technology – University of Engineering and Technology, Vietnam National University  
