@@ -58,24 +58,6 @@ SQS_QUEUE_URL=https://sqs.ap-southeast-1.amazonaws.com/123456789012/my-queue
 
 ---
 
-### 🌐 Chrome & Chromedriver Path
-
-| Variable             | Description                          |
-| -------------------- | ------------------------------------ |
-| `CHROME_BINARY_PATH` | Path to your Chrome binary           |
-| `CHROMEDRIVER_PATH`  | Path to your Chromedriver executable |
-
-**Example:**
-
-```env
-CHROME_BINARY_PATH=chrome-win64/chrome.exe
-CHROMEDRIVER_PATH=chromedriver-win64/chromedriver.exe
-```
-
-> ⚠️ Make sure the paths are correct and compatible with your OS.
-
----
-
 ## ▶️ Step 3: Run the Project
 
 After filling in `.env`, you can start the crawler:
