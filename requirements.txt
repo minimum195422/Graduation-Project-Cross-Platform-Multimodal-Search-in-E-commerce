@@ -14,3 +14,5 @@ torch
 open_clip_torch==2.23.0
 pillow==10.2.0
 numpy==1.24.4
+elasticsearch==8.12.0
+pymilvus==2.5.12
