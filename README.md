@@ -102,8 +102,6 @@ To support both keyword-based and multimodal search, the system utilizes two typ
 - 🗃️ **Elasticsearch**: for indexing and querying structured product metadata  
 - 🧠 **Milvus**: for storing high-dimensional vector embeddings used in similarity search (text/image/combined)
 
----
-
 #### 📄 `product_information`
 
 Stores structured metadata for keyword-based product search.
@@ -119,8 +117,6 @@ Stores structured metadata for keyword-based product search.
 | `last_update`  | Timestamp of the latest data update        |
 | `image_url`    | URL of the main product image              |
 
----
-
 #### 💰 `product_price_history`
 
 Tracks price changes over time for trend analysis.
@@ -131,8 +127,6 @@ Tracks price changes over time for trend analysis.
 | `product_id` | Reference to the product         |
 | `price`      | Price value at the given time    |
 | `timestamp`  | Time when the price was recorded |
-
----
 
 #### ⭐ `product_review_history`
 
@@ -146,8 +140,6 @@ Monitors rating and review trends over time.
 | `review_count` | Number of reviews at that point     |
 | `timestamp`    | Time of data capture                |
 
----
-
 #### 🧬 `product_embedding`
 
 Enables similarity search using OpenCLIP embeddings.
@@ -158,8 +150,6 @@ Enables similarity search using OpenCLIP embeddings.
 | `text_embedding`    | Embedding vector derived from the product title/metadata |
 | `image_embedding`   | Embedding vector derived from the product image          |
 | `combine_embedding` | Joint embedding combining both text and image modalities |
-
----
 
 #### 🔧 Extensibility & Raw Data
 
@@ -177,8 +167,6 @@ Enables similarity search using OpenCLIP embeddings.
 
 This section presents the performance evaluation of the system across three key dimensions: data crawling speed, search accuracy, and query efficiency on real-world datasets.
 
----
-
 #### ⚙️ 1. Data Crawling Throughput
 
 To evaluate the scalability of the data crawling system, experiments were conducted on multiple crawler servers (each running 10 parallel crawling threads). The following table shows the total number of products collected over time depending on the number of machines:
@@ -192,8 +180,6 @@ To evaluate the scalability of the data crawling system, experiments were conduc
 | 5 hours     | 20,313 items | 40,536 items  | 60,672 items  |
 
 > ✅ **Observation**: The system demonstrates near-linear scalability with more machines, significantly improving large-scale data collection.
-
----
 
 #### 🔍 2. Retrieval Accuracy
 
@@ -216,8 +202,6 @@ Search accuracy is evaluated based on two retrieval modes:
 | Top-10 | 0.821                    | 0.827                      |
 
 > 📌 **Conclusion**: The combined modality improves retrieval accuracy, especially in Top-1 and Top-10 rankings, enhancing the system’s reliability in practical e-commerce scenarios.
-
----
 
 #### 🚀 3. Query Latency (Performance Benchmark)
 
