@@ -4,7 +4,7 @@
 
 In recent years, Vietnam’s e-commerce market has witnessed remarkable growth, becoming a driving force in the digital economy. By 2024, e-commerce accounted for 9% of total retail sales and nearly two-thirds of the digital economy's value, placing Vietnam among the top 10 fastest-growing e-commerce nations globally.
 
-![Fastest Growing eCommerce Markets](C:\Users\DELL\Desktop\minimum_git\Graduation-Project-Cross-Platform-Multimodal-Search-in-E-commerce\assets\ecommerce_growth.jpg)
+![Fastest Growing eCommerce Markets](assets\ecommerce_growth.jpg)
 
 The convenience of online shopping—enabling users to search, compare, and purchase products across platforms—has reshaped consumer behavior. However, with over 400 registered e-commerce platforms in Vietnam and major players like Shopee, Lazada, Tiki, TikTok Shop, and Sendo, product information is highly fragmented. This fragmentation complicates the product discovery process, requiring users to manually switch between apps and compare offerings.
 
