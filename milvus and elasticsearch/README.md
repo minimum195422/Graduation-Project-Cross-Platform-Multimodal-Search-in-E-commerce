@@ -17,8 +17,6 @@ If this fails, install:
 - [NVIDIA GPU Driver](https://www.nvidia.com/Download/index.aspx)
 - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
----
-
 ## 🐳 Step 2: Start Milvus & Elasticsearch Backend
 
 Use Docker Compose to start the full vector search stack:
@@ -39,8 +37,6 @@ docker compose up --build
 > ✅ Milvus version: `v2.5.12-gpu`  
 > ✅ Elasticsearch version: `v8.12.0`
 
----
-
 ## 🩺 Step 3: Verify Service Health
 
 Once all containers are running, check that the services are healthy:
@@ -49,8 +45,6 @@ Once all containers are running, check that the services are healthy:
 - 🔗 Elasticsearch: [http://localhost:9200](http://localhost:9200)
 - 🔗 MinIO Console: [http://localhost:9001](http://localhost:9001)  
   *(Username: `minioadmin`, Password: `minioadmin`)*
-
----
 
 ## 🧱 Step 4: Initialize Collections and Indexes
 
@@ -64,5 +58,3 @@ This script should handle:
 
 - Creating Milvus collections (e.g., name, dimension, index type)
 - Creating Elasticsearch indexes or mappings (if needed)
-
----
