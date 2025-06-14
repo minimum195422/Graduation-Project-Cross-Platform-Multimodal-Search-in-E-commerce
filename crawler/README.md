@@ -60,16 +60,33 @@ SQS_QUEUE_URL=https://sqs.ap-southeast-1.amazonaws.com/123456789012/my-queue
 
 ## ▶️ Step 3: Run the Project
 
-After filling in `.env`, you can start the crawler:
+After filling in `.env`, make sure your `proxy_list.txt` file contains valid proxy keys before running the crawler.
 
-```bash
-python main.py
+### 🔑 Add Proxies to `proxy_list.txt`
+
+This project uses proxies to avoid IP rate limiting or bans.  
+You can purchase proxy keys from [https://proxy.vn/](https://proxy.vn/) and paste them into the file.
+
+#### 📄 Format:
+
+Create or open a file named `proxy_list.txt` in the root of the project and add your proxy keys, one per line. For example:
+
+```
+proxy_key_1_from_proxy.vn
+proxy_key_2_from_proxy.vn
+proxy_key_3_from_proxy.vn
 ```
 
-Or if using Docker:
+> 🔒 These keys will be used automatically by the crawler to rotate proxies during runtime.
+
+---
+
+### 🚀 Run the Crawler
+
+Once your `.env` and `proxy_list.txt` are ready, simply run your main file:
 
 ```bash
-docker compose up --build
+python crawler_manager.py
 ```
 
 ---
