@@ -50,6 +50,51 @@ This project integrates multiple technologies and frameworks to build a scalable
 - **Elasticsearch Dashboards** – For search log analysis and indexing performance
 - **Custom Metrics Logging** – For measuring crawling rate, product coverage, etc.
 
+## 🧠 System Architecture
+
+The system is designed as a distributed, message-driven pipeline that supports large-scale data collection, preprocessing, embedding, and search across multiple e-commerce platforms. It ensures scalability, modularity, and real-time responsiveness.
+
+### 🧱 Architecture Overview
+
+![Data Crawling Pipeline](assets/data_pipeline_diagram.jpg)
+
+### 🔄 End-to-End Workflow
+
+1. **Job Scheduling**
+   
+   - A centralized scheduler pushes crawl tasks into **RabbitMQ**.
+
+2. **Crawling Layer**
+   
+   - Multiple **Crawler Servers** listen to RabbitMQ and process assigned jobs.
+   - Using **Selenium**, they fetch product data (metadata + images) from dynamic e-commerce pages.
+   - The raw data is stored in **AWS S3**.
+
+3. **Task Trigger via SQS**
+   
+   - After uploading to S3, crawlers create a processing task in **AWS SQS** for downstream services.
+
+4. **Data Processing & Indexing**
+   
+   - A **Data Management** module fetches raw data from S3.
+   - Metadata is indexed into **Elasticsearch** for full-text search.
+   - Images and text are encoded using **OpenCLIP**, and embeddings are stored in **Milvus**.
+
+5. **Search & API Access**
+   
+   - A **FastAPI** service exposes:
+     - Text Search (via Elasticsearch)
+     - Image/Embedding Search (via Milvus)
+     - Hybrid search (text + image fusion)
+   - The user interface consumes this API for seamless cross-platform product discovery.
+
+### ✅ System Highlights
+
+- **Asynchronous Queuing** with RabbitMQ and SQS ensures robust task handling.
+- **Separation of Concerns** allows crawling, processing, and search to scale independently.
+- **Multimodal Search** enhances product matching via images and descriptions.
+- **Cloud-native** components ensure flexibility, fault tolerance, and cost-effectiveness.
+
 ## 📜 License
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
