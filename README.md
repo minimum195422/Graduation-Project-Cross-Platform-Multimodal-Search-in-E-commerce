@@ -1,6 +1,6 @@
 # 🎓Graduation Project: Cross-Platform Multimodal Search in E-commerce
 
-## 📘Introduction
+# 📘Introduction
 
 In recent years, Vietnam’s e-commerce market has witnessed remarkable growth, becoming a driving force in the digital economy. By 2024, e-commerce accounted for 9% of total retail sales and nearly two-thirds of the digital economy's value, placing Vietnam among the top 10 fastest-growing e-commerce nations globally.
 
@@ -12,53 +12,53 @@ Existing price comparison tools (e.g., websosanh.vn) rely mainly on keyword-base
 
 To address these challenges, this project proposes an end-to-end system that automates data crawling, storage, and search across platforms. Selenium is used to simulate real user behavior, allowing robust data extraction from dynamic pages. Crawled data is indexed using both **Elasticsearch** (for keyword-based search) and **Milvus** (for image and vector similarity search). The system leverages **OpenCLIP**, a multimodal deep learning model, to support image-based and hybrid searches.
 
-## 🛠️ Technologies Used
+# 🛠️ Technologies Used
 
 This project integrates multiple technologies and frameworks to build a scalable, efficient, and intelligent multi-platform product search system:
 
-### ⚙️ Backend & Data Collection
+#### ⚙️ Backend & Data Collection
 
 - **Python 3.10** – Core language for backend logic and crawling pipelines
 - **Selenium** – Browser automation to crawl dynamic web content (supports AJAX, lazy-loading, infinite scroll)
 - **Requests** – Used for lightweight data fetching and HTML parsing (for static parts)
 
-### 🗃️ Data Storage & Search
+#### 🗃️ Data Storage & Search
 
 - **Elasticsearch** – Full-text search engine for structured product metadata
 - **Milvus v2.5** – Vector database for fast similarity search (image/text embeddings)
 - **AWS S3** – Cloud storage for product images and data archives
 
-### 📩 Message Queues & Communication
+#### 📩 Message Queues & Communication
 
 - **Amazon SQS** – Distributed message queue for decoupling crawlers and processors
 - **RabbitMQ** – Internal task queuing for scheduling and parallel processing
 
-### 🤖 AI & Embedding
+#### 🤖 AI & Embedding
 
 - **OpenCLIP (ViT-L/14 336px)** – Pre-trained vision-language model for generating multimodal embeddings
 - **PyTorch** – Deep learning framework to run OpenCLIP model
 - **Faiss (optional)** – For local vector similarity benchmarking
 
-### 🌐 APIs & Integration
+#### 🌐 APIs & Integration
 
 - **FastAPI** – Web framework for exposing search and admin endpoints
 - **Uvicorn** – ASGI server for running FastAPI
 - **Docker** – Containerization for deploying crawlers and services
 
-### 📈 Monitoring & Evaluation
+#### 📈 Monitoring & Evaluation
 
 - **Elasticsearch Dashboards** – For search log analysis and indexing performance
 - **Custom Metrics Logging** – For measuring crawling rate, product coverage, etc.
 
-## 🧠 System Architecture
+# 🧠 System Architecture
 
 The system is designed as a distributed, message-driven pipeline that supports large-scale data collection, preprocessing, embedding, and search across multiple e-commerce platforms. It ensures scalability, modularity, and real-time responsiveness.
 
-### 🧱 Architecture Overview
+#### 🧱 Architecture Overview
 
 ![Data Crawling Pipeline](assets/data_pipeline_diagram.jpg)
 
-### 🔄 End-to-End Workflow
+#### 🔄 End-to-End Workflow
 
 1. **Job Scheduling**
    
@@ -88,21 +88,103 @@ The system is designed as a distributed, message-driven pipeline that supports l
      - Hybrid search (text + image fusion)
    - The user interface consumes this API for seamless cross-platform product discovery.
 
-### ✅ System Highlights
+#### ✅ System Highlights
 
 - **Asynchronous Queuing** with RabbitMQ and SQS ensures robust task handling.
 - **Separation of Concerns** allows crawling, processing, and search to scale independently.
 - **Multimodal Search** enhances product matching via images and descriptions.
 - **Cloud-native** components ensure flexibility, fault tolerance, and cost-effectiveness.
 
-## 📜 License
+# 📊 Data Schema
+
+To support both keyword-based and multimodal search, the system utilizes two types of storage backends:
+
+- 🗃️ **Elasticsearch**: for indexing and querying structured product metadata  
+- 🧠 **Milvus**: for storing high-dimensional vector embeddings used in similarity search (text/image/combined)
+
+---
+
+## 📦 Elasticsearch Collections
+
+#### 📄 `product_information`
+
+Stores structured metadata for keyword-based product search.
+
+| Field          | Description                                |
+| -------------- | ------------------------------------------ |
+| `id`           | Unique identifier of the product           |
+| `product_name` | Product title or name                      |
+| `url`          | Link to the product on the source platform |
+| `price`        | Current price                              |
+| `rating`       | Average user rating                        |
+| `review_count` | Number of reviews                          |
+| `last_update`  | Timestamp of the latest data update        |
+| `image_url`    | URL of the main product image              |
+
+---
+
+#### 💰 `product_price_history`
+
+Tracks price changes over time for trend analysis.
+
+| Field        | Description                      |
+| ------------ | -------------------------------- |
+| `record_id`  | Unique ID for each price record  |
+| `product_id` | Reference to the product         |
+| `price`      | Price value at the given time    |
+| `timestamp`  | Time when the price was recorded |
+
+---
+
+#### ⭐ `product_review_history`
+
+Monitors rating and review trends over time.
+
+| Field          | Description                         |
+| -------------- | ----------------------------------- |
+| `record_id`    | Unique ID for each review snapshot  |
+| `product_id`   | Reference to the product            |
+| `rating`       | Recorded average rating at the time |
+| `review_count` | Number of reviews at that point     |
+| `timestamp`    | Time of data capture                |
+
+---
+
+## 🧠 Milvus Collections
+
+#### 🧬 `product_embedding`
+
+Enables similarity search using OpenCLIP embeddings.
+
+| Field               | Description                                              |
+| ------------------- | -------------------------------------------------------- |
+| `id`                | Reference to the product (`product_information.id`)      |
+| `text_embedding`    | Embedding vector derived from the product title/metadata |
+| `image_embedding`   | Embedding vector derived from the product image          |
+| `combine_embedding` | Joint embedding combining both text and image modalities |
+
+---
+
+#### 🔧 Extensibility & Raw Data
+
+> ⚠️ **Note:**  
+> The schema above reflects the core operational structure used in **Elasticsearch** and **Milvus** for fast search and AI processing. However, the system collects **much richer raw data**, stored in **AWS S3**, including:
+> 
+> - Seller info, brand, product category  
+> - Shipping & promotion details  
+> - Product variants (e.g., size, color)  
+> - Flash sales, bundles, vouchers  
+> 
+> This schema is **designed for extensibility**. Additional collections (e.g., `seller_info`, `search_log`, `user_behavior`) can be added without impacting existing system behavior or performance.
+
+# 📜 License
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
 
-## 👤 Author & Contact
+# 👤 Author & Contact
 
 **Duong Binh Minh**  
-Final-year Computer Engineering Student – VNU University of Engineering and Technology  
+Bachelor's Student in Information Technology – University of Engineering and Technology, Vietnam National University  
 📫 Academic Email: [21020778@vnu.edu.vn](mailto:21020778@vnu.edu.vn)  
 📫 Personal Email: [minimum.195422@gmail.com](mailto:minimum.195422@gmail.com)  
 🎓 Supervisor: ThS. Trần Mạnh Cường
