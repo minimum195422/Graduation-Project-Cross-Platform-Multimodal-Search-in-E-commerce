@@ -12,8 +12,6 @@ This project is a real-time data processing system designed to:
 
 It supports multithreaded execution to scale up consumption and processing throughput.
 
-## 🗂️ Repository Structure
-
 | File                   | Description                                            |
 | ---------------------- | ------------------------------------------------------ |
 | \`data_management.py\` | Core logic for consuming, processing, and storing data |
