@@ -3,8 +3,6 @@
 This project is a crawler that uses **RabbitMQ**, **AWS S3**, **AWS SQS**, and a headless browser powered by **Chrome + Chromedriver**.  
 Before running the code, you need to set up your environment variables properly using a `.env` file.
 
-
-
 ## 📁 Step 1: Create `.env` File
 
 Copy the example file provided:

@@ -10,13 +10,16 @@ Search products by text query.
 
 **Parameters:**
 
-- \`q\` (string): Text query
-- \`limit\` (int, default=50): Number of results
+| Name    | Type   | Required | Description                     |
+| ------- | ------ | -------- | ------------------------------- |
+| `q`     | string | ✅        | Text query                      |
+| `limit` | int    | ❌        | Number of results (default: 50) |
 
 **Example:**
-\`\`\`
+
+```bash
 GET /search/text?q=laptop
-\`\`\`
+```
 
 ### 🖼️ POST `/search/image`
 
@@ -24,13 +27,16 @@ Search products by image similarity.
 
 **Body (multipart/form-data):**
 
-- \`file\`: Image file
-- \`limit\`: Number of results
+| Field   | Type | Required | Description       |
+| ------- | ---- | -------- | ----------------- |
+| `file`  | file | ✅        | Image file        |
+| `limit` | int  | ❌        | Number of results |
 
 **Example using curl:**
-\`\`\`bash
+
+```bash
 curl -X POST -F "file=@example.jpg" http://localhost:8000/search/image
-\`\`\`
+```
 
 ### 🔀 POST `/search/multimodal`
 
@@ -38,14 +44,17 @@ Search products using both image and text.
 
 **Body (multipart/form-data):**
 
-- \`file\`: Image file
-- \`q\`: Text query
-- \`limit\`: Number of results
+| Field   | Type   | Required | Description       |
+| ------- | ------ | -------- | ----------------- |
+| `file`  | file   | ✅        | Image file        |
+| `q`     | string | ✅        | Text query        |
+| `limit` | int    | ❌        | Number of results |
 
-**Example:**
-\`\`\`bash
+**Example using curl:**
+
+```bash
 curl -X POST -F "file=@shoe.jpg" -F "q=red nike shoes" http://localhost:8000/search/multimodal
-\`\`\`
+```
 
 ## ⚙️ Setup & Run
 
@@ -53,35 +62,35 @@ curl -X POST -F "file=@shoe.jpg" -F "q=red nike shoes" http://localhost:8000/sea
 
 Make sure you are using Python 3.10+ and install requirements:
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### 🔐 Environment Variables
 
-Create a \`.env\` file (or use \`.env.example\`) with the following variables:
+Create a `.env` file (or copy from `.env.example`) with the following content:
 
-\`\`\`env
+```env
 ES_HOST=http://localhost:9200
 MILVUS_HOST=localhost
 MILVUS_PORT=19530
-\`\`\`
+```
 
 ### ▶️ Start the API Server
 
-\`\`\`bash
+```bash
 uvicorn main:app --reload
-\`\`\`
+```
 
 ## 💡 Technology Stack
 
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [OpenCLIP](https://github.com/mlfoundations/open_clip)
-- [Milvus](https://milvus.io/)
-- [Elasticsearch](https://www.elastic.co/elasticsearch/)
-- [PIL](https://pillow.readthedocs.io/), NumPy, PyTorch
+- FastAPI  
+- OpenCLIP  
+- Milvus  
+- Elasticsearch  
+- PIL, NumPy, PyTorch
 
 ## 📌 Notes
 
-- This system assumes Milvus already contains precomputed embeddings.
+- This system assumes Milvus already contains precomputed embeddings.  
 - The `/search/multimodal` endpoint uses late fusion and reranking with cosine similarity.

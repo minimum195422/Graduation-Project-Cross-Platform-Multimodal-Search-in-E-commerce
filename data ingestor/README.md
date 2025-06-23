@@ -12,33 +12,33 @@ This project is a real-time data processing system designed to:
 
 It supports multithreaded execution to scale up consumption and processing throughput.
 
-| File                   | Description                                            |
-| ---------------------- | ------------------------------------------------------ |
-| \`data_management.py\` | Core logic for consuming, processing, and storing data |
-| \`thread_runner.py\`   | Multithreaded runner that launches multiple consumers  |
-| \`.env\`               | Environment variables (not included, see below)        |
+| File                 | Description                                            |
+| -------------------- | ------------------------------------------------------ |
+| `data_management.py` | Core logic for consuming, processing, and storing data |
+| `thread_runner.py`   | Multithreaded runner that launches multiple consumers  |
+| `.env`               | Environment variables (not included, see below)        |
 
 ## ⚙️ Requirements
 
 - Python 3.10+
 - CUDA-enabled GPU (recommended)
 - Dependencies:
-  - \`torch\`, \`numpy\`, \`pillow\`, \`requests\`, \`open_clip_torch\`
-  - \`boto3\`, \`python-dotenv\`, \`pymilvus\`, \`elasticsearch\`
+  - `torch`, `numpy`, `pillow`, `requests`, `open_clip_torch`
+  - `boto3`, `python-dotenv`, `pymilvus`, `elasticsearch`
 
 Install all requirements:
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ## 🚀 How to Run
 
 Start multithreaded workers (default: 10 threads):
 
-\`\`\`bash
+```bash
 python thread_runner.py
-\`\`\`
+```
 
 Each thread will:
 
@@ -53,16 +53,15 @@ Each thread will:
 
 On successful processing, the output will log:
 
-\`\`\`bash
+```bash
 Using cuda
 Loading OpenCLIP ViT-L-14-336
 Thread 2 started consuming from SQS...
 Thread 2 processed ID: abc123
-\`\`\`
+```
 
 ## 📌 Notes
 
 - Make sure Milvus and Elasticsearch are up and running before starting the script.
 - GPU is highly recommended for faster embedding generation.
 - You can scale horizontally by launching this script on multiple machines.
-  EOF
