@@ -1,4 +1,4 @@
-# 🎓Graduation Project: Cross-Platform Multimodal Search in E-commerce
+# 🎓Graduation Project: Realtime E-commerce Data Integration and Multimodal Search across Platforms
 
 # 📘Introduction
 
