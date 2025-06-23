@@ -1,37 +1,6 @@
-cat <<EOF > README.md
-
 # 🔍 Multimodal Product Search API
 
 This project is a **FastAPI-based backend** that allows users to search for e-commerce products by **text**, **image**, or a **combination of both**. It integrates **OpenCLIP** for embedding generation, **Elasticsearch** for text-based search, and **Milvus** for vector-based similarity retrieval.
-
----
-
-## 🧱 System Architecture
-
-\`\`\`mermaid
-flowchart TD
-    A[Client Request] --> B[FastAPI Backend]
-    B --> C[OpenCLIP Embedding]
-    C --> D[Text Search → Elasticsearch]
-    C --> E[Image/Vector Search → Milvus]
-    D --> F[Product ID List]
-    E --> F
-    F --> G[Join & Rank]
-    G --> H[Return Top Products]
-\`\`\`
-
----
-
-## 📂 Project Structure
-
-| File                 | Purpose                                                  |
-| -------------------- | -------------------------------------------------------- |
-| \`main.py\`          | FastAPI app with search routes (text, image, multimodal) |
-| \`model_loader.py\`  | Load OpenCLIP model, tokenizer, preprocess functions     |
-| \`elastic_utils.py\` | Elasticsearch text search logic                          |
-| \`milvus_utils.py\`  | Milvus-based vector search and data retrieval            |
-
----
 
 ## 🚀 API Endpoints
 
@@ -49,8 +18,6 @@ Search products by text query.
 GET /search/text?q=laptop
 \`\`\`
 
----
-
 ### 🖼️ POST `/search/image`
 
 Search products by image similarity.
@@ -64,8 +31,6 @@ Search products by image similarity.
 \`\`\`bash
 curl -X POST -F "file=@example.jpg" http://localhost:8000/search/image
 \`\`\`
-
----
 
 ### 🔀 POST `/search/multimodal`
 
@@ -81,8 +46,6 @@ Search products using both image and text.
 \`\`\`bash
 curl -X POST -F "file=@shoe.jpg" -F "q=red nike shoes" http://localhost:8000/search/multimodal
 \`\`\`
-
----
 
 ## ⚙️ Setup & Run
 
@@ -110,8 +73,6 @@ MILVUS_PORT=19530
 uvicorn main:app --reload
 \`\`\`
 
----
-
 ## 💡 Technology Stack
 
 - [FastAPI](https://fastapi.tiangolo.com/)
@@ -120,31 +81,7 @@ uvicorn main:app --reload
 - [Elasticsearch](https://www.elastic.co/elasticsearch/)
 - [PIL](https://pillow.readthedocs.io/), NumPy, PyTorch
 
----
-
 ## 📌 Notes
 
 - This system assumes Milvus already contains precomputed embeddings.
 - The `/search/multimodal` endpoint uses late fusion and reranking with cosine similarity.
-
----
-
-## 🧪 Example Response
-
-\`\`\`json
-{
-  "results": [
-    {
-      "id": "abc123",
-      "product_name": "Red Nike Running Shoes",
-      "price": 1290000,
-      "rating": 4.7,
-      "reviews_count": 512,
-      "image_url": "https://cdn.example.com/img/abc123.jpg"
-    },
-    ...
-  ]
-}
-\`\`\`
-
-EOF
